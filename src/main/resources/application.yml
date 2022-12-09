@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: pass-batch
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/pass_local?zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: pass_local_user
+    password: passlocal123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari: # Spring Boot2 부터 default DBCP는 hikariCP
+      maximum-pool-size: 20 # pool에 보관 가능한 최대 connection 수
+
+  batch:
+    job:
+      enabled: false # 기본값 true는 Spring Boot 실행 시 등록되어 있는 Job들이 실행됩니다.
+    jdbc:
+      # Batch에 사용되는 SQL 초기화 스크립트를 실행
+      # 임베디드인 경우에는 기본적으로 실행하는데, always 설정을 하면 임베디드 타입처럼 항상 활성화시킬 수 있음
+      # 초기 수행한 이후에는 꺼두어도 됨
+      initialize-schema: always
